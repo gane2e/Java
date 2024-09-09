@@ -27,19 +27,25 @@ public class AdminMenu extends AbstractMenu {
 	@Override
 	public Menu next() {
 		switch(sc.nextLine()) {
+		//영화 등록
 		case "1" : 
 			createMovies();
 			return this;
-			
+		//영화 목록 출력
 		case "2" : 
-			printAllMovies(); //영화 목록 출력
+			printAllMovies(); 
 			return this;
-			
+		//영화 삭제
+		case "3" : 
+			deletMovie();
+			return this;
+			//이전 메뉴
 			case "b" : return prevMenu;
 			default : return this;
 		}
 	}
-
+	
+	// case "1" 영화 등록
 	private void createMovies() {
 		
 		System.out.println("제목 : ");
@@ -58,7 +64,8 @@ public class AdminMenu extends AbstractMenu {
 		}
 		
 	}
-
+	
+	// case "2" 영화 목록 출력
 	private void printAllMovies() {
 		try {
 			List<Movie> movies = Movie.findAll();
@@ -71,6 +78,16 @@ public class AdminMenu extends AbstractMenu {
 			System.out.println("데이터 접근에 실패하였습니다.");
 		}
 	}
+	
+	// case "3" 영화 삭제
+	private void deletMovie() {
+		printAllMovies();
+		System.out.println("삭제할 영화의 ID값을 입력하세요 : "); //1725842136 입력
+		Movie.delete(sc.nextLine());	//Movie.delete(1725842136); --> 함수 호출
+		System.out.println(">> 삭제되었습니다.");
+	}
+
+
 	
 	
 }
